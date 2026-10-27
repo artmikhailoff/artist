@@ -14,7 +14,7 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     environment:
-      ARTIST_DOMAIN: ${ARTIST_DOMAIN:-artist.northlayertech.com}
+      ARTIST_DOMAIN: ${ARTIST_DOMAIN:-kasabov.northlayertech.com}
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:80/"]
       interval: 30s

@@ -11,7 +11,7 @@ servers:
     docker: true
     app_dir: /opt/artist
     compose_project: artist
-    domain: artist.northlayertech.com
+    domain: kasabov.northlayertech.com
     http_port: 80
     https_port: 8443
     auto_deploy: true

@@ -145,7 +145,7 @@ jobs:
             echo ""
             echo "- Host: \`${{ steps.inv.outputs.user }}@${{ steps.inv.outputs.host }}\` (${{ env.HOST_NAME }})"
             echo "- HTTPS: https://${{ steps.inv.outputs.domain }}:${{ steps.inv.outputs.https_port }}/"
-            echo "- HTTP: http://${{ steps.inv.outputs.domain }}/ (ACME challenge + redirect)"
+            echo "- HTTP: http://${{ steps.inv.outputs.domain }}/ (ACME challenge + redirect to :${{ steps.inv.outputs.https_port }})"
             echo "- App dir: \`${{ steps.inv.outputs.app_dir }}\`"
             echo "- Note: host :443 is OpenVPN stunnel; site TLS is on :${{ steps.inv.outputs.https_port }}"
           } >> "$GITHUB_STEP_SUMMARY"

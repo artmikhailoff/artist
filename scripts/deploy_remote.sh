@@ -6,7 +6,7 @@ APP_DIR="${ARTIST_APP_DIR:-/opt/artist}"
 COMPOSE_PROJECT="${ARTIST_COMPOSE_PROJECT:-artist}"
 HTTP_PORT="${ARTIST_HTTP_PORT:-80}"
 HTTPS_PORT="${ARTIST_HTTPS_PORT:-8443}"
-DOMAIN="${ARTIST_DOMAIN:-artist.northlayertech.com}"
+DOMAIN="${ARTIST_DOMAIN:-kasabov.northlayertech.com}"
 RELEASE_TGZ="${ARTIST_RELEASE_TGZ:-/tmp/artist-release.tar.gz}"
 
 public_https_url() {

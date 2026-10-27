@@ -4,8 +4,8 @@
 
 - Push to `main` runs `.github/workflows/deploy.yml` (`Deploy Artist`) to Liquid Web `liquidweb1` (`69.16.249.191` from doors inventory).
 - The `test` job (static file checks) must pass before `deploy`.
-- Public site: `https://artist.northlayertech.com:8443/` (host `:443` is OpenVPN stunnel).
-- DNS A record for `artist.northlayertech.com` must point at `69.16.249.191`.
+- Public site: `https://kasabov.northlayertech.com:8443/` (host `:443` is OpenVPN stunnel).
+- DNS A record for `kasabov.northlayertech.com` must point at `69.16.249.191`.
 - Repo secret required: `SSH_DEPLOY_KEY` (ed25519 private key with root access on liquidweb1).
 
 ## Tests
@@ -36,7 +36,7 @@ none
 
 ## Post-deploy check
 
-Read-only HTTP GET `https://artist.northlayertech.com:8443/` (or `http://artist.northlayertech.com/` if TLS is not ready). A non-success status is `FAIL`. Do not SSH to change server files.
+Read-only HTTP GET `https://kasabov.northlayertech.com:8443/` (or `http://kasabov.northlayertech.com/` if TLS is not ready). A non-success status is `FAIL`. Do not SSH to change server files.
 
 ## Rollback
 

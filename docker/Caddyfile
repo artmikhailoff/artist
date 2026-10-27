@@ -3,11 +3,11 @@
 }
 
 # Public HTTPS is published on host :8443 (container :443) because host :443 is OpenVPN stunnel.
-http://{$ARTIST_DOMAIN:artist.northlayertech.com} {
-	redir https://{$ARTIST_DOMAIN:artist.northlayertech.com}:8443{uri} permanent
+http://{$ARTIST_DOMAIN:kasabov.northlayertech.com} {
+	redir https://{$ARTIST_DOMAIN:kasabov.northlayertech.com}:8443{uri} permanent
 }
 
-https://{$ARTIST_DOMAIN:artist.northlayertech.com} {
+https://{$ARTIST_DOMAIN:kasabov.northlayertech.com} {
 	encode gzip zstd
 
 	tls {
