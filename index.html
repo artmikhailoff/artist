@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="metaTitle">Sergei Kasabov — Painter</title>
+    <meta
+      name="description"
+      content="Sergei Kasabov (Serge Kasabian) — painter born 1951 in Baku. Paintings in private collections across the USA, Germany, France, and Japan."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Sora:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#bio" data-i18n="skip">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <a class="logo" href="#top">Sergei Kasabov</a>
+      <div class="header__right">
+        <nav class="nav" data-i18n-aria="navAria" aria-label="Primary">
+          <a href="#bio" data-i18n="navBio">Biography</a>
+          <a href="#works" data-i18n="navWorks">Artwork</a>
+          <a href="#contact" data-i18n="navContact">Contact</a>
+        </nav>
+        <div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Language">
+          <button type="button" class="lang__btn" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang__btn" data-lang="fr" aria-pressed="false">FR</button>
+          <button type="button" class="lang__btn" data-lang="es" aria-pressed="false">ES</button>
+          <button type="button" class="lang__btn" data-lang="ru" aria-pressed="false">RU</button>
+          <button type="button" class="lang__btn" data-lang="zh" aria-pressed="false">中文</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="Introduction">
+        <div class="hero__media" aria-hidden="true">
+          <img
+            src="assets/studio/studio-001.jpg"
+            alt=""
+            class="hero__img"
+            data-hero-img
+          />
+          <div class="hero__veil"></div>
+        </div>
+        <div class="hero__copy">
+          <p class="hero__aka" data-i18n="heroAka">
+            Also known as Serge (Sergey) Kasabian · Касабян
+          </p>
+          <h1 class="hero__name">
+            <span class="hero__en">Sergei Kasabov</span>
+            <span class="hero__ru" lang="ru">Сергей Касабов</span>
+          </h1>
+          <p class="hero__union" data-i18n="heroUnion">
+            Член творческого союза художников России
+          </p>
+          <p class="hero__lede" data-i18n="heroLede">
+            Painter. Born 1951 in Baku. Exhibited in Moscow and New York; sold
+            at auction in Paris, Tours, Avon, and Moscow. Works in private
+            collections in the USA, Germany, France, and Japan.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--solid" href="#works" data-i18n="ctaWorks"
+              >View artwork</a
+            >
+            <a class="btn btn--ghost" href="#bio" data-i18n="ctaBio"
+              >Read biography</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="section bio" id="bio">
+        <div class="section__inner bio__grid">
+          <aside class="bio__portrait reveal">
+            <figure class="portrait">
+              <img
+                src="assets/facebook/profile.jpg"
+                alt="Sergei Kasabov"
+              />
+              <figcaption data-i18n="portraitCap">Portrait · Facebook profile</figcaption>
+            </figure>
+            <ul class="bio__facts">
+              <li>
+                <span data-i18n="factBornLabel">Born</span>
+                <span data-i18n="factBorn">15 May 1951, Baku</span>
+              </li>
+              <li>
+                <span data-i18n="factLivesLabel">Lives in</span>
+                <span data-i18n="factLives">Moscow</span>
+              </li>
+              <li>
+                <span data-i18n="factAkaLabel">Also listed as</span>
+                <span data-i18n="factAka">Serge / Sergey Kasabian, Касабян</span>
+              </li>
+              <li>
+                <span data-i18n="factUnionLabel">Member since 1995</span>
+                <span data-i18n="factUnion"
+                  >Professional Creative Union of Artists of Russia</span
+                >
+              </li>
+              <li>
+                <span data-i18n="factRecordLabel">Auction record</span>
+                <span data-i18n="factRecord"
+                  >18 works on artinvestment.ru; lots also on askART
+                  (2012–2019)</span
+                >
+              </li>
+            </ul>
+          </aside>
+
+          <div class="bio__body reveal" style="--delay: 0.12s">
+            <p class="eyebrow" data-i18n="bioEyebrow">Biography</p>
+            <h2 data-i18n="bioTitle">Sergei Ivanovich Kasabov</h2>
+            <div class="prose">
+              <p data-i18n="bioP1">
+                Sergei Ivanovich Kasabov (Касабов Сергей Иванович) was born on
+                15 May 1951 in Baku and lives in Moscow. On international
+                auctions he is sold as Serge (Sergey) Kasabian; Russian
+                catalogues sometimes spell the name «Касабян».
+              </p>
+              <p data-i18n="bioP2">
+                In 1972 he graduated from the Baku Art College. From 1976 to 1989
+                he worked in artistic casting and illustrated books.
+              </p>
+              <p data-i18n="bioP3">
+                In 1992 he took part in a painting auction in Paris. Since 1995
+                he has been a member of the Professional Creative Union of
+                Artists of Russia. His paintings are held in private collections
+                in the United States, Germany, France, and Japan.
+              </p>
+            </div>
+
+            <div class="bio__block">
+              <p class="eyebrow" data-i18n="exhibitionsEyebrow">Exhibitions</p>
+              <h3 data-i18n="exhibitionsTitle">Selected exhibitions</h3>
+              <ul class="timeline">
+                <li data-i18n="exhibition1">1996 — Art Manege, Moscow</li>
+                <li data-i18n="exhibition2">1998–1999 — Art Expo, New York</li>
+                <li data-i18n="exhibition3">
+                  1992 — Participation in a painting auction, Paris
+                </li>
+              </ul>
+            </div>
+
+            <div class="bio__block">
+              <p class="eyebrow" data-i18n="salesEyebrow">Where the work was sold</p>
+              <h3 data-i18n="salesTitle">Documented auction appearances</h3>
+              <p class="bio__sales-intro" data-i18n="salesIntro">
+                Catalogued lots include houses in Moscow, Paris, Tours (France),
+                Avon (Connecticut), plus further sales recorded on askART at
+                Digard (Paris) and Auktionshaus Blank (Germany) between 2012 and
+                2019. Realised prices are often behind subscription walls.
+              </p>
+              <ul class="sales">
+                <li>
+                  <strong data-i18n="sale1Title"
+                    >Litfond, Moscow — 27 December 2025</strong
+                  >
+                  <span data-i18n="sale1Body"
+                    >«Composition No. 3», 1999, oil on canvas, 80×60 cm.</span
+                  >
+                  <a
+                    class="sales__link"
+                    href="https://www.litfund.ru/auction/714/206/"
+                    rel="noopener"
+                    target="_blank"
+                    >litfund.ru</a
+                  >
+                </li>
+                <li>
+                  <strong data-i18n="sale2Title"
+                    >Rossini, Paris — 25 January 2013</strong
+                  >
+                  <span data-i18n="sale2Body"
+                    >«Angels», 1990, 90×120 cm, estimate €500–800.</span
+                  >
+                  <a
+                    class="sales__link"
+                    href="https://www.lotsearch.net/lot/kasabian-serge-ne-en-1951-31167665"
+                    rel="noopener"
+                    target="_blank"
+                    >lotsearch.net</a
+                  >
+                </li>
+                <li>
+                  <strong data-i18n="sale3Title"
+                    >Giraudeau, Tours (France) — January 2011</strong
+                  >
+                  <span data-i18n="sale3Body"
+                    >«Composition», oil on canvas, 60×90 cm, estimate
+                    €200–250.</span
+                  >
+                  <a
+                    class="sales__link"
+                    href="https://hdv-giraudeau.fr/lot/9046/1706016-kasabian-sergey-composition-huile-sur-toile-sbd-60x90-cm"
+                    rel="noopener"
+                    target="_blank"
+                    >hdv-giraudeau.fr</a
+                  >
+                </li>
+                <li>
+                  <strong data-i18n="sale4Title"
+                    >Trinity Auctions, Avon, Connecticut — 6 November 2021</strong
+                  >
+                  <span data-i18n="sale4Body"
+                    >Untitled work, 90×90 cm, estimate $800–1,200.</span
+                  >
+                  <a
+                    class="sales__link"
+                    href="https://www.invaluable.com/auction-lot/serge-kasabian-armenian-b-1951-38-c-2d44901987"
+                    rel="noopener"
+                    target="_blank"
+                    >invaluable.com</a
+                  >
+                </li>
+                <li>
+                  <strong data-i18n="sale5Title"
+                    >askART / other houses — 2012–2019</strong
+                  >
+                  <span data-i18n="sale5Body"
+                    >Additional lots at Digard (Paris) and Auktionshaus Blank
+                    (Germany). artinvestment.ru lists 18 works in total.</span
+                  >
+                  <a
+                    class="sales__link"
+                    href="https://www.askart.com/auction_records/Serge_Kasabian/11220695/serge-kasabian"
+                    rel="noopener"
+                    target="_blank"
+                    >askART</a
+                  >
+                </li>
+              </ul>
+              <p class="bio__note" data-i18n="salesNote">
+                Still unconfirmed in open catalogues: the exact name of the 1992
+                Paris auction, sales in London or New York auction houses, and
+                specific Moscow galleries.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section works" id="works">
+        <div class="section__inner">
+          <header class="section__head reveal">
+            <p class="eyebrow" data-i18n="worksEyebrow">Artwork</p>
+            <h2 data-i18n="worksTitle">Studio works</h2>
+            <p class="section__sub" data-i18n="worksSub">
+              New studio photographs and video at the top, with earlier Facebook
+              and auction pieces available under Archive.
+            </p>
+          </header>
+
+          <div
+            class="works__filters reveal"
+            role="group"
+            data-i18n-aria="filterLabel"
+            aria-label="Filter artwork"
+          >
+            <button
+              type="button"
+              class="filter__btn is-active"
+              data-filter="all"
+              aria-pressed="true"
+              data-i18n="filterAll"
+            >
+              All
+            </button>
+            <button
+              type="button"
+              class="filter__btn"
+              data-filter="studio"
+              aria-pressed="false"
+              data-i18n="filterStudio"
+            >
+              Studio
+            </button>
+            <button
+              type="button"
+              class="filter__btn"
+              data-filter="video"
+              aria-pressed="false"
+              data-i18n="filterVideo"
+            >
+              Video
+            </button>
+            <button
+              type="button"
+              class="filter__btn"
+              data-filter="archive"
+              aria-pressed="false"
+              data-i18n="filterArchive"
+            >
+              Archive
+            </button>
+          </div>
+
+          <div class="gallery" data-gallery></div>
+        </div>
+      </section>
+
+      <section class="section contact" id="contact">
+        <div class="section__inner contact__panel reveal">
+          <p class="eyebrow" data-i18n="contactEyebrow">Contact</p>
+          <h2 data-i18n="contactTitle">Inquiries &amp; collections</h2>
+          <p class="section__sub" data-i18n="contactSub">
+            For acquisitions, catalogue requests, or exhibition inquiries, write
+            directly to the studio.
+          </p>
+          <a class="contact__email" href="mailto:kasabov1505@gmail.com"
+            >kasabov1505@gmail.com</a
+          >
+          <p class="contact__note">
+            <span data-i18n="contactRefs">Auction references:</span>
+            <a
+              href="https://www.litfund.ru/labels/painter/kasabov-sergej-ivanovich/"
+              rel="noopener"
+              target="_blank"
+              >Litfund</a
+            >,
+            <a
+              href="https://www.askart.com/auction_records/Serge_Kasabian/11220695/serge-kasabian"
+              rel="noopener"
+              target="_blank"
+              >askART</a
+            >,
+            <a
+              href="https://artinvestment.ru/auctions/173460/"
+              rel="noopener"
+              target="_blank"
+              >artinvestment.ru</a
+            >
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        © <span data-year></span>
+        <span data-i18n="footer">Sergei Kasabov · Сергей Иванович Касабов</span>
+      </p>
+    </footer>
+
+    <dialog
+      class="lightbox"
+      data-lightbox
+      data-i18n-aria="lightboxLabel"
+      aria-label="Artwork preview"
+    >
+      <button
+        type="button"
+        class="lightbox__close"
+        data-close
+        data-i18n="close"
+        data-i18n-aria="close"
+        aria-label="Close"
+      >
+        Close
+      </button>
+      <img data-lightbox-img alt="" hidden />
+      <video data-lightbox-video controls playsinline hidden></video>
+      <p data-lightbox-cap></p>
+    </dialog>
+
+    <script src="i18n.js"></script>
+    <script src="works-data.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

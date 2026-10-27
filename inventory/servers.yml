@@ -1,0 +1,17 @@
+# Deploy targets for Sergei Kasabov artist site.
+# liquidweb1 host/IP from doors/inventory/servers.yml (US Liquid Web VPS).
+# Port 443 on that host is OpenVPN stunnel — site HTTPS is published on 8443.
+
+servers:
+  - name: liquidweb1
+    host: 69.16.249.191
+    user: root
+    region: us-east
+    provider: liquidweb
+    docker: true
+    app_dir: /opt/artist
+    compose_project: artist
+    domain: artist.northlayertech.com
+    http_port: 80
+    https_port: 8443
+    auto_deploy: true

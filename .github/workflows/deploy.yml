@@ -1,0 +1,151 @@
+name: Deploy Artist
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      host:
+        description: "Inventory host name"
+        required: true
+        default: liquidweb1
+        type: choice
+        options:
+          - liquidweb1
+
+concurrency:
+  group: deploy-artist-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Verify static site files
+        run: |
+          set -euo pipefail
+          test -f index.html
+          test -f styles.css
+          test -f main.js
+          test -f i18n.js
+          test -f works-data.js
+          test -f Dockerfile
+          test -f docker-compose.yml
+          test -f docker/Caddyfile
+          test -d assets/studio
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    env:
+      HOST_NAME: ${{ github.event.inputs.host || 'liquidweb1' }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Read inventory (Liquid Web)
+        id: inv
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          want = os.environ["HOST_NAME"]
+          text = Path("inventory/servers.yml").read_text(encoding="utf-8")
+          for block in text.split("- name:")[1:]:
+              lines = block.splitlines()
+              if lines[0].strip() != want:
+                  continue
+              data = {}
+              for line in lines[1:]:
+                  s = line.strip()
+                  if not s or s.startswith("#") or s.startswith("- "):
+                      continue
+                  k, _, v = s.partition(":")
+                  data[k.strip()] = v.strip().strip('"').strip("'")
+              out = Path(os.environ["GITHUB_OUTPUT"])
+              with out.open("a", encoding="utf-8") as fh:
+                  fh.write(f"host={data['host']}\n")
+                  fh.write(f"user={data['user']}\n")
+                  fh.write(f"app_dir={data['app_dir']}\n")
+                  fh.write(f"compose_project={data['compose_project']}\n")
+                  fh.write(f"http_port={data['http_port']}\n")
+                  fh.write(f"https_port={data['https_port']}\n")
+                  fh.write(f"domain={data['domain']}\n")
+              port = data["https_port"]
+              url = (
+                  f"https://{data['domain']}/"
+                  if port == "443"
+                  else f"https://{data['domain']}:{port}/"
+              )
+              print(f"Target {want}: {data['user']}@{data['host']} {url}")
+              raise SystemExit(0)
+          raise SystemExit(f"host {want!r} not in inventory")
+          PY
+
+      - name: Install SSH key
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.SSH_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ steps.inv.outputs.host }}" >> ~/.ssh/known_hosts
+
+      - name: Package release
+        run: |
+          set -euo pipefail
+          tar -czf /tmp/artist-release.tar.gz \
+            Dockerfile \
+            docker-compose.yml \
+            docker \
+            index.html \
+            styles.css \
+            main.js \
+            i18n.js \
+            works-data.js \
+            assets \
+            scripts/deploy_remote.sh
+
+      - name: Upload release to Liquid Web
+        run: |
+          set -euo pipefail
+          REMOTE="${{ steps.inv.outputs.user }}@${{ steps.inv.outputs.host }}"
+          ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes "${REMOTE}" \
+            "mkdir -p '${{ steps.inv.outputs.app_dir }}'"
+          scp -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes \
+            /tmp/artist-release.tar.gz \
+            "${REMOTE}:/tmp/artist-release.tar.gz"
+          scp -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes \
+            scripts/deploy_remote.sh \
+            "${REMOTE}:/tmp/artist-deploy_remote.sh"
+
+      - name: Deploy Docker container on Liquid Web
+        run: |
+          set -euo pipefail
+          REMOTE="${{ steps.inv.outputs.user }}@${{ steps.inv.outputs.host }}"
+          ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes "${REMOTE}" \
+            "chmod +x /tmp/artist-deploy_remote.sh && \
+             ARTIST_APP_DIR='${{ steps.inv.outputs.app_dir }}' \
+             ARTIST_COMPOSE_PROJECT='${{ steps.inv.outputs.compose_project }}' \
+             ARTIST_HTTP_PORT='${{ steps.inv.outputs.http_port }}' \
+             ARTIST_HTTPS_PORT='${{ steps.inv.outputs.https_port }}' \
+             ARTIST_DOMAIN='${{ steps.inv.outputs.domain }}' \
+             ARTIST_RELEASE_TGZ='/tmp/artist-release.tar.gz' \
+             bash /tmp/artist-deploy_remote.sh"
+
+      - name: Summary
+        run: |
+          {
+            echo "### Sergei Kasabov site deployed"
+            echo ""
+            echo "- Host: \`${{ steps.inv.outputs.user }}@${{ steps.inv.outputs.host }}\` (${{ env.HOST_NAME }})"
+            echo "- HTTPS: https://${{ steps.inv.outputs.domain }}:${{ steps.inv.outputs.https_port }}/"
+            echo "- HTTP: http://${{ steps.inv.outputs.domain }}/ (ACME challenge + redirect)"
+            echo "- App dir: \`${{ steps.inv.outputs.app_dir }}\`"
+            echo "- Note: host :443 is OpenVPN stunnel; site TLS is on :${{ steps.inv.outputs.https_port }}"
+          } >> "$GITHUB_STEP_SUMMARY"

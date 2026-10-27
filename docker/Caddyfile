@@ -1,0 +1,19 @@
+{
+	email admin@northlayertech.com
+}
+
+{$ARTIST_DOMAIN:artist.northlayertech.com} {
+	encode gzip zstd
+
+	tls {
+		issuer acme
+	}
+
+	handle {
+		root * /srv
+		file_server
+
+		@static path *.css *.js *.jpg *.jpeg *.png *.gif *.ico *.svg *.webp *.mp4 *.webm *.woff *.woff2
+		header @static Cache-Control "public, max-age=604800"
+	}
+}
