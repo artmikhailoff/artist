@@ -99,8 +99,8 @@ function renderGallery() {
     figure.dataset.category = item.category;
     figure.style.setProperty("--delay", `${Math.min(index, 12) * 0.03}s`);
 
-    const title = pack[item.titleKey] || item.titleKey;
-    const cap = pack[item.capKey] || item.capKey;
+    const title = item.title || pack[item.titleKey] || item.titleKey || "";
+    const cap = pack[item.capKey] || item.capKey || "";
 
     if (item.type === "video") {
       figure.innerHTML = `
@@ -116,7 +116,7 @@ function renderGallery() {
     } else {
       figure.innerHTML = `
         <button type="button" class="gallery__open" data-open>
-          <img src="${item.src}" alt="" loading="lazy" />
+          <img src="${item.src}" alt="${title}" loading="lazy" />
         </button>
         <figcaption>
           <strong>${title}</strong>

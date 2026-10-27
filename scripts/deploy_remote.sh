@@ -69,12 +69,13 @@ docker_compose() {
 }
 
 http_ok() {
+  local health_url="http://127.0.0.1:${HTTP_PORT}/healthz"
   if command_exists curl; then
-    curl -fsS -o /dev/null "http://127.0.0.1:${HTTP_PORT}/"
+    curl -fsS -o /dev/null -H "Host: ${DOMAIN}" "${health_url}"
   elif command_exists wget; then
-    wget -q --spider "http://127.0.0.1:${HTTP_PORT}/"
+    wget -q --spider --header "Host: ${DOMAIN}" "${health_url}"
   else
-    docker exec artist wget -q --spider http://127.0.0.1:80/
+    docker exec artist wget -q --spider --header "Host: ${DOMAIN}" http://127.0.0.1:80/healthz
   fi
 }
 

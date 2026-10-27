@@ -16,7 +16,16 @@ services:
     environment:
       ARTIST_DOMAIN: ${ARTIST_DOMAIN:-kasabov.northlayertech.com}
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:80/"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "-q",
+          "--spider",
+          "--header",
+          "Host: kasabov.northlayertech.com",
+          "http://127.0.0.1:80/healthz",
+        ]
       interval: 30s
       timeout: 5s
       retries: 3

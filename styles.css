@@ -595,13 +595,13 @@ h2 {
 .gallery__open img {
   width: 100%;
   transition: transform 0.7s var(--ease), filter 0.7s var(--ease);
-  filter: saturate(1.02);
+  filter: saturate(1.06) contrast(1.03);
 }
 
 .gallery__open:hover img,
 .gallery__open:focus-visible img {
   transform: scale(1.04);
-  filter: saturate(1.12) contrast(1.04);
+  filter: saturate(1.14) contrast(1.06);
 }
 
 .gallery__item figcaption {
