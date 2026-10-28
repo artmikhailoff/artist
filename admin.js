@@ -101,11 +101,11 @@
         (item) => `
       <article class="admin-row">
         <img class="admin-row__media" src="${escapeHtml(item.url)}" alt="${escapeHtml(item.title)}" />
+        <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}" aria-label="Удалить ${escapeHtml(item.title)}" title="Удалить">Удалить</button>
         <div class="admin-row__body">
           <strong>${escapeHtml(item.title)}</strong>
           <span>${escapeHtml(item.slug)}</span>
         </div>
-        <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}" title="Удалить">Удалить</button>
       </article>`
       )
       .join("");
@@ -124,11 +124,11 @@
         <video class="admin-row__media" src="${escapeHtml(item.url)}" ${
           item.poster ? `poster="${escapeHtml(item.poster)}"` : ""
         } muted playsinline preload="metadata"></video>
+        <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}" aria-label="Удалить ${escapeHtml(item.title)}" title="Удалить">Удалить</button>
         <div class="admin-row__body">
           <strong>${escapeHtml(item.title)}</strong>
           <span>${escapeHtml(item.slug)}</span>
         </div>
-        <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}" title="Удалить">Удалить</button>
       </article>`
       )
       .join("");

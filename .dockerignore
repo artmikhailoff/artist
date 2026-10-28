@@ -1,0 +1,7 @@
+.git
+.github
+.cursor
+**/__pycache__
+**/*.pyc
+**/.DS_Store
+assets/studio

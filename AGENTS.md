@@ -15,9 +15,11 @@
 No unit suite. CI verifies release files exist and compiles the API:
 
 ```text
-index.html admin.html admin.js styles.css main.js i18n.js works-data.js Dockerfile docker-compose.yml docker/Caddyfile seed/manifest.json assets/studio api/app
+index.html admin.html admin.js styles.css main.js i18n.js works-data.js Dockerfile docker-compose.yml docker/Caddyfile seed/manifest.json assets/artworks api/app
 python -m compileall -q api/app
 ```
+
+Live gallery media lives only in the Docker volume `studio_data` on the host (admin upload/delete). Deploy must not ship `assets/studio` or seed media into that volume.
 
 Do not invent a test framework. Add tests only when the plan asks for them.
 

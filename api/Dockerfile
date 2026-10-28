@@ -11,8 +11,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 COPY api/app /app/app
 COPY seed/manifest.json /seed/manifest.json
-COPY assets/studio/*.jpg /seed/images/
-COPY assets/studio/videos/ /seed/videos/
+RUN mkdir -p /seed/images /seed/videos
 
 ENV ARTIST_DATA_DIR=/data \
     ARTIST_SEED_DIR=/seed \

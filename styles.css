@@ -928,7 +928,7 @@ h2 {
 
 .admin-row {
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr) auto;
+  grid-template-columns: 72px auto minmax(0, 1fr);
   gap: 0.85rem;
   align-items: center;
   padding: 0.55rem;
@@ -942,6 +942,7 @@ h2 {
   object-fit: cover;
   display: block;
   background: #0c0e12;
+  flex-shrink: 0;
 }
 
 .admin-row__body {
@@ -978,6 +979,7 @@ h2 {
   font-size: 0.8rem;
   cursor: pointer;
   white-space: nowrap;
+  align-self: center;
 }
 
 .admin-delete:hover,
@@ -999,11 +1001,17 @@ h2 {
 
 @media (max-width: 560px) {
   .admin-row {
-    grid-template-columns: 64px minmax(0, 1fr);
+    grid-template-columns: 64px auto minmax(0, 1fr);
+    gap: 0.55rem;
+  }
+
+  .admin-row__media {
+    width: 64px;
+    height: 64px;
   }
 
   .admin-delete {
-    grid-column: 1 / -1;
-    justify-self: stretch;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.75rem;
   }
 }

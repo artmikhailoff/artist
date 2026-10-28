@@ -44,8 +44,8 @@ jobs:
           test -f docker-compose.yml
           test -f docker/Caddyfile
           test -f seed/manifest.json
-          test -d assets/studio
           test -d api/app
+          test -d assets/artworks
 
       - name: Compile API
         run: python -m compileall -q api/app
@@ -112,6 +112,7 @@ jobs:
         run: |
           set -euo pipefail
           tar -czf /tmp/artist-release.tar.gz \
+            --exclude='assets/studio' \
             Dockerfile \
             docker-compose.yml \
             docker \
