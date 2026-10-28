@@ -31,7 +31,7 @@
         <section class="admin-card" id="login-panel">
           <p class="eyebrow">Админ</p>
           <h1>Вход</h1>
-          <p class="admin-lead">Управление студийными фото и видео.</p>
+          <p class="admin-lead">Управление работами и видео на сайте.</p>
           <form id="login-form" class="admin-form" autocomplete="on">
             <label>
               Логин
@@ -53,20 +53,33 @@
 
         <section class="admin-dashboard" id="dashboard" hidden>
           <div class="section-head">
-            <p class="eyebrow">Студия</p>
-            <h1>Фото и видео</h1>
-            <p>
-              Загрузка публикует файл на сайте. Удаление убирает его из галереи.
-              Архивные работы с аукционов здесь не трогаем.
-            </p>
+            <p class="eyebrow">Админ</p>
+            <h1>Работы и видео</h1>
+            <p>Два раздела: картинки для галереи «Работы» и ролики для «Видео».</p>
           </div>
 
           <div class="admin-panels">
-            <section class="admin-card admin-upload">
-              <h2>Картины</h2>
-              <form id="upload-photo-form" class="admin-form">
-                <label>
-                  Название
+            <section class="admin-card admin-panel">
+              <header class="admin-panel__head">
+                <h2>Работы</h2>
+                <p>JPG, PNG или WEBP · до 15 МБ · сразу появляются в разделе «Работы»</p>
+              </header>
+
+              <form id="upload-photo-form" class="admin-upload-box">
+                <label class="admin-drop" data-drop="photo">
+                  <input
+                    type="file"
+                    name="file"
+                    accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
+                    required
+                    hidden
+                  />
+                  <span class="admin-drop__icon" aria-hidden="true">＋</span>
+                  <strong>Выберите картину</strong>
+                  <span class="admin-drop__hint" data-file-label="photo">Нажмите или перетащите файл сюда</span>
+                </label>
+                <label class="admin-title-field">
+                  Название на сайте
                   <input
                     type="text"
                     name="title"
@@ -74,27 +87,36 @@
                     placeholder="Например: Неоновый каркас"
                   />
                 </label>
-                <label class="admin-file">
-                  Файл (JPG / PNG / WEBP, до 15 МБ)
+                <p class="admin-error" id="photo-error" hidden></p>
+                <p class="admin-ok" id="photo-ok" hidden></p>
+                <button class="btn btn--solid" type="submit">Опубликовать работу</button>
+              </form>
+
+              <h3 class="admin-list-title">На сайте сейчас</h3>
+              <div class="admin-list" id="photo-grid"></div>
+            </section>
+
+            <section class="admin-card admin-panel">
+              <header class="admin-panel__head">
+                <h2>Видео</h2>
+                <p>MP4 или WEBM · до 100 МБ · сразу появляются в разделе «Видео»</p>
+              </header>
+
+              <form id="upload-video-form" class="admin-upload-box">
+                <label class="admin-drop" data-drop="video">
                   <input
                     type="file"
                     name="file"
-                    accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
+                    accept="video/mp4,video/webm,.mp4,.webm"
                     required
+                    hidden
                   />
+                  <span class="admin-drop__icon" aria-hidden="true">＋</span>
+                  <strong>Выберите видео</strong>
+                  <span class="admin-drop__hint" data-file-label="video">Нажмите или перетащите файл сюда</span>
                 </label>
-                <p class="admin-error" id="photo-error" hidden></p>
-                <p class="admin-ok" id="photo-ok" hidden></p>
-                <button class="btn btn--solid" type="submit">Загрузить фото</button>
-              </form>
-              <div class="admin-grid" id="photo-grid"></div>
-            </section>
-
-            <section class="admin-card admin-upload">
-              <h2>Видео</h2>
-              <form id="upload-video-form" class="admin-form">
-                <label>
-                  Название
+                <label class="admin-title-field">
+                  Название на сайте
                   <input
                     type="text"
                     name="title"
@@ -102,20 +124,13 @@
                     placeholder="Например: Частоты лаборатории"
                   />
                 </label>
-                <label class="admin-file">
-                  Файл (MP4 / WEBM, до 100 МБ)
-                  <input
-                    type="file"
-                    name="file"
-                    accept="video/mp4,video/webm,.mp4,.webm"
-                    required
-                  />
-                </label>
                 <p class="admin-error" id="video-error" hidden></p>
                 <p class="admin-ok" id="video-ok" hidden></p>
-                <button class="btn btn--solid" type="submit">Загрузить видео</button>
+                <button class="btn btn--solid" type="submit">Опубликовать видео</button>
               </form>
-              <div class="admin-grid" id="video-grid"></div>
+
+              <h3 class="admin-list-title">На сайте сейчас</h3>
+              <div class="admin-list" id="video-grid"></div>
             </section>
           </div>
         </section>

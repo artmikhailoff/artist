@@ -83,7 +83,7 @@ def _public_item(item: dict[str, Any]) -> dict[str, str]:
         "kind": "image",
         "title": title,
         "url": f"/media/images/{slug}.jpg",
-        "category": "studio",
+        "category": "works",
     }
 
 

@@ -49,21 +49,63 @@
     logoutBtn.hidden = !authed;
   };
 
+  const wireDrop = (form, kind) => {
+    const drop = form.querySelector(`[data-drop="${kind}"]`);
+    const input = form.querySelector('input[type="file"]');
+    const label = form.querySelector(`[data-file-label="${kind}"]`);
+    if (!drop || !input || !label) return;
+
+    const setName = () => {
+      const file = input.files && input.files[0];
+      label.textContent = file
+        ? `Выбрано: ${file.name}`
+        : "Нажмите или перетащите файл сюда";
+      drop.classList.toggle("has-file", Boolean(file));
+    };
+
+    input.addEventListener("change", setName);
+
+    ["dragenter", "dragover"].forEach((evt) => {
+      drop.addEventListener(evt, (e) => {
+        e.preventDefault();
+        drop.classList.add("is-drag");
+      });
+    });
+    ["dragleave", "drop"].forEach((evt) => {
+      drop.addEventListener(evt, (e) => {
+        e.preventDefault();
+        drop.classList.remove("is-drag");
+      });
+    });
+    drop.addEventListener("drop", (e) => {
+      const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      if (!file) return;
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      input.files = dt.files;
+      setName();
+    });
+  };
+
+  wireDrop(photoForm, "photo");
+  wireDrop(videoForm, "video");
+
   const renderPhotos = (items) => {
     if (!items.length) {
-      photoGrid.innerHTML = '<p class="admin-empty">Пока нет картин. Загрузите первую.</p>';
+      photoGrid.innerHTML =
+        '<p class="admin-empty">Пока нет работ. Добавьте первую картину выше.</p>';
       return;
     }
     photoGrid.innerHTML = items
       .map(
         (item) => `
-      <article class="admin-item">
-        <img src="${escapeHtml(item.url)}" alt="${escapeHtml(item.title)}" />
-        <div class="admin-item-meta">
+      <article class="admin-row">
+        <img class="admin-row__media" src="${escapeHtml(item.url)}" alt="${escapeHtml(item.title)}" />
+        <div class="admin-row__body">
           <strong>${escapeHtml(item.title)}</strong>
           <span>${escapeHtml(item.slug)}</span>
-          <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}">Удалить</button>
         </div>
+        <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}" title="Удалить">Удалить</button>
       </article>`
       )
       .join("");
@@ -71,19 +113,22 @@
 
   const renderVideos = (items) => {
     if (!items.length) {
-      videoGrid.innerHTML = '<p class="admin-empty">Пока нет видео. Загрузите первое.</p>';
+      videoGrid.innerHTML =
+        '<p class="admin-empty">Пока нет видео. Добавьте первый ролик выше.</p>';
       return;
     }
     videoGrid.innerHTML = items
       .map(
         (item) => `
-      <article class="admin-item">
-        <video src="${escapeHtml(item.url)}" ${item.poster ? `poster="${escapeHtml(item.poster)}"` : ""} muted playsinline preload="metadata"></video>
-        <div class="admin-item-meta">
+      <article class="admin-row">
+        <video class="admin-row__media" src="${escapeHtml(item.url)}" ${
+          item.poster ? `poster="${escapeHtml(item.poster)}"` : ""
+        } muted playsinline preload="metadata"></video>
+        <div class="admin-row__body">
           <strong>${escapeHtml(item.title)}</strong>
           <span>${escapeHtml(item.slug)}</span>
-          <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}">Удалить</button>
         </div>
+        <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}" title="Удалить">Удалить</button>
       </article>`
       )
       .join("");
@@ -135,18 +180,30 @@
     }
   });
 
+  const resetDropLabel = (form, kind) => {
+    const label = form.querySelector(`[data-file-label="${kind}"]`);
+    const drop = form.querySelector(`[data-drop="${kind}"]`);
+    if (label) label.textContent = "Нажмите или перетащите файл сюда";
+    if (drop) drop.classList.remove("has-file");
+  };
+
   photoForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     show(photoError, "");
     show(photoOk, "");
     const fd = new FormData(photoForm);
+    const btn = photoForm.querySelector('button[type="submit"]');
+    if (btn) btn.disabled = true;
     try {
       await api("/api/photos", { method: "POST", body: fd });
       photoForm.reset();
-      show(photoOk, "Фото добавлено на сайт.");
+      resetDropLabel(photoForm, "photo");
+      show(photoOk, "Работа опубликована на сайте.");
       await loadGallery();
     } catch (err) {
       show(photoError, err.message || "Не удалось загрузить");
+    } finally {
+      if (btn) btn.disabled = false;
     }
   });
 
@@ -155,13 +212,18 @@
     show(videoError, "");
     show(videoOk, "");
     const fd = new FormData(videoForm);
+    const btn = videoForm.querySelector('button[type="submit"]');
+    if (btn) btn.disabled = true;
     try {
       await api("/api/videos", { method: "POST", body: fd });
       videoForm.reset();
-      show(videoOk, "Видео добавлено на сайт.");
+      resetDropLabel(videoForm, "video");
+      show(videoOk, "Видео опубликовано на сайте.");
       await loadGallery();
     } catch (err) {
       show(videoError, err.message || "Не удалось загрузить");
+    } finally {
+      if (btn) btn.disabled = false;
     }
   });
 
@@ -171,11 +233,13 @@
     const slug = btn.getAttribute("data-slug");
     if (!slug) return;
     if (!window.confirm(`Удалить «${slug}» с сайта?`)) return;
+    btn.disabled = true;
     try {
       await api(`/api/media/${encodeURIComponent(slug)}`, { method: "DELETE" });
       await loadGallery();
     } catch (err) {
       window.alert(err.message || "Не удалось удалить");
+      btn.disabled = false;
     }
   };
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,11 +28,11 @@
           <a href="#contact" data-i18n="navContact">Contact</a>
           <a href="admin.html" class="nav-admin" title="Admin">Admin</a>
         </nav>
-        <div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Language">
-          <button type="button" class="lang__btn" data-lang="en" aria-pressed="true">EN</button>
+        <div class="lang" role="group" data-i18n-aria="langLabel" aria-label="Язык">
+          <button type="button" class="lang__btn" data-lang="ru" aria-pressed="true">RU</button>
+          <button type="button" class="lang__btn" data-lang="en" aria-pressed="false">EN</button>
           <button type="button" class="lang__btn" data-lang="fr" aria-pressed="false">FR</button>
           <button type="button" class="lang__btn" data-lang="es" aria-pressed="false">ES</button>
-          <button type="button" class="lang__btn" data-lang="ru" aria-pressed="false">RU</button>
           <button type="button" class="lang__btn" data-lang="zh" aria-pressed="false">中文</button>
         </div>
       </div>
@@ -250,11 +250,10 @@
       <section class="section works" id="works">
         <div class="section__inner">
           <header class="section__head reveal">
-            <p class="eyebrow" data-i18n="worksEyebrow">Artwork</p>
-            <h2 data-i18n="worksTitle">Studio works</h2>
+            <p class="eyebrow" data-i18n="worksEyebrow">Работы</p>
+            <h2 data-i18n="worksTitle">Галерея</h2>
             <p class="section__sub" data-i18n="worksSub">
-              New studio photographs and video at the top, with earlier Facebook
-              and auction pieces available under Archive.
+              Картины и видео из студии. Переключайте разделы ниже.
             </p>
           </header>
 
@@ -262,25 +261,16 @@
             class="works__filters reveal"
             role="group"
             data-i18n-aria="filterLabel"
-            aria-label="Filter artwork"
+            aria-label="Фильтр работ"
           >
             <button
               type="button"
               class="filter__btn is-active"
-              data-filter="all"
+              data-filter="works"
               aria-pressed="true"
-              data-i18n="filterAll"
+              data-i18n="filterWorks"
             >
-              All
-            </button>
-            <button
-              type="button"
-              class="filter__btn"
-              data-filter="studio"
-              aria-pressed="false"
-              data-i18n="filterStudio"
-            >
-              Studio
+              Работы
             </button>
             <button
               type="button"
@@ -289,16 +279,7 @@
               aria-pressed="false"
               data-i18n="filterVideo"
             >
-              Video
-            </button>
-            <button
-              type="button"
-              class="filter__btn"
-              data-filter="archive"
-              aria-pressed="false"
-              data-i18n="filterArchive"
-            >
-              Archive
+              Видео
             </button>
           </div>
 

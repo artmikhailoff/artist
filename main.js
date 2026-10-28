@@ -7,10 +7,10 @@ const lightboxCap = document.querySelector("[data-lightbox-cap]");
 const gallery = document.querySelector("[data-gallery]");
 const dict = window.KASABOV_I18N || {};
 const archiveWorks = Array.isArray(window.KASABOV_WORKS) ? window.KASABOV_WORKS : [];
-const supported = ["en", "fr", "es", "ru", "zh"];
+const supported = ["ru", "en", "fr", "es", "zh"];
 let works = [...archiveWorks];
-let activeFilter = "all";
-let currentLang = "en";
+let activeFilter = "works";
+let currentLang = "ru";
 
 if (year) year.textContent = String(new Date().getFullYear());
 
@@ -97,7 +97,7 @@ function mapApiItem(item) {
   }
   return {
     type: "image",
-    category: "studio",
+    category: "works",
     src: item.url,
     title: item.title || "",
     capKey: "capStudio",
@@ -106,11 +106,8 @@ function mapApiItem(item) {
 
 function renderGallery() {
   if (!gallery) return;
-  const pack = dict[currentLang] || dict.en || {};
-  const filtered =
-    activeFilter === "all"
-      ? works
-      : works.filter((w) => w.category === activeFilter);
+  const pack = dict[currentLang] || dict.ru || dict.en || {};
+  const filtered = works.filter((w) => w.category === activeFilter);
 
   gallery.innerHTML = "";
   filtered.forEach((item, index) => {
@@ -169,7 +166,7 @@ async function loadStudioGallery() {
 
 document.querySelectorAll("[data-filter]").forEach((btn) => {
   btn.addEventListener("click", () => {
-    activeFilter = btn.getAttribute("data-filter") || "all";
+    activeFilter = btn.getAttribute("data-filter") || "works";
     document.querySelectorAll("[data-filter]").forEach((b) => {
       const on = b === btn;
       b.classList.toggle("is-active", on);
@@ -192,7 +189,7 @@ lightbox?.addEventListener("close", () => {
 });
 
 function applyLanguage(lang) {
-  const pack = dict[lang] || dict.en;
+  const pack = dict[lang] || dict.ru || dict.en;
   if (!pack) return;
   currentLang = lang;
 
@@ -233,8 +230,8 @@ function detectLanguage() {
   } catch {
     /* ignore */
   }
-  const nav = (navigator.language || "en").slice(0, 2).toLowerCase();
-  return supported.includes(nav) ? nav : "en";
+  const nav = (navigator.language || "ru").slice(0, 2).toLowerCase();
+  return supported.includes(nav) ? nav : "ru";
 }
 
 document.querySelectorAll("[data-lang]").forEach((btn) => {
