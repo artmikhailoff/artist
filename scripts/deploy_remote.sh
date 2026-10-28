@@ -18,6 +18,11 @@ public_https_url() {
   fi
 }
 
+# Default bcrypt for initial bootstrap only (rotate via ADMIN_PASSWORD_HASH in .env).
+# Plain password is never stored on disk by this script.
+DEFAULT_ADMIN_USER="kasabov"
+DEFAULT_ADMIN_PASSWORD_HASH='$2b$12$m/0bq/bwpMWfsjqlrq3hW.ckAlVwMidzNiN5GXfYr5swfYgdiNYVq'
+
 command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
@@ -79,6 +84,24 @@ http_ok() {
   fi
 }
 
+env_get() {
+  local key="$1"
+  local file="$2"
+  if [[ -f "${file}" ]]; then
+    local line
+    line="$(grep -E "^${key}=" "${file}" | tail -n1 || true)"
+    if [[ -n "${line}" ]]; then
+      printf '%s\n' "${line#*=}" | sed 's/\$\$/$/g'
+      return 0
+    fi
+  fi
+  return 1
+}
+
+compose_escape() {
+  printf '%s' "$1" | sed 's/\$/$$/g'
+}
+
 ensure_docker
 ensure_ports
 
@@ -88,6 +111,7 @@ trap 'rm -rf "${tmp_extract}"' EXIT
 
 tar -xzf "${RELEASE_TGZ}" -C "${tmp_extract}"
 
+# Preserve host .env (secrets + admin credentials) across code sync.
 rsync -a --delete \
   --exclude '.env' \
   "${tmp_extract}/" "${APP_DIR}/" 2>/dev/null || {
@@ -97,14 +121,41 @@ rsync -a --delete \
 
 cd "${APP_DIR}"
 
+EXISTING_ENV="${APP_DIR}/.env"
+SECRET_KEY="$(env_get SECRET_KEY "${EXISTING_ENV}" || true)"
+ADMIN_USER="$(env_get ADMIN_USER "${EXISTING_ENV}" || true)"
+ADMIN_PASSWORD_HASH="$(env_get ADMIN_PASSWORD_HASH "${EXISTING_ENV}" || true)"
+
+if [[ -z "${SECRET_KEY}" ]]; then
+  if command_exists openssl; then
+    SECRET_KEY="$(openssl rand -hex 32)"
+  else
+    SECRET_KEY="$(head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n')"
+  fi
+fi
+
+if [[ -z "${ADMIN_USER}" ]]; then
+  ADMIN_USER="${DEFAULT_ADMIN_USER}"
+fi
+
+if [[ -z "${ADMIN_PASSWORD_HASH}" ]]; then
+  ADMIN_PASSWORD_HASH="${DEFAULT_ADMIN_PASSWORD_HASH}"
+fi
+
 {
   echo "ARTIST_IMAGE=artist"
+  echo "ARTIST_API_IMAGE=artist-api"
   echo "ARTIST_TAG=latest"
   echo "ARTIST_CONTAINER_NAME=artist"
+  echo "ARTIST_API_CONTAINER_NAME=artist-api"
   echo "ARTIST_HTTP_PORT=${HTTP_PORT}"
   echo "ARTIST_HTTPS_PORT=${HTTPS_PORT}"
   echo "ARTIST_DOMAIN=${DOMAIN}"
   echo "COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT}"
+  echo "COOKIE_SECURE=true"
+  printf 'SECRET_KEY=%s\n' "$(compose_escape "${SECRET_KEY}")"
+  printf 'ADMIN_USER=%s\n' "$(compose_escape "${ADMIN_USER}")"
+  printf 'ADMIN_PASSWORD_HASH=%s\n' "$(compose_escape "${ADMIN_PASSWORD_HASH}")"
 } > "${APP_DIR}/.env"
 chmod 600 "${APP_DIR}/.env"
 
@@ -112,11 +163,12 @@ echo "Building and starting artist (${DOMAIN}) http:${HTTP_PORT} https:${HTTPS_P
 docker_compose --env-file "${APP_DIR}/.env" -p "${COMPOSE_PROJECT}" up -d --build --force-recreate
 
 echo "Waiting for health..."
-for _ in $(seq 1 60); do
+for _ in $(seq 1 90); do
   if http_ok; then
     echo "Sergei Kasabov site is up:"
     echo "  $(public_https_url /)"
     echo "  http://${DOMAIN}/  (ACME + redirect when cert is ready)"
+    echo "  admin: $(public_https_url /admin.html)"
     docker_compose --env-file "${APP_DIR}/.env" -p "${COMPOSE_PROJECT}" ps
     exit 0
   fi

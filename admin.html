@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Админ — Sergei Kasabov</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Sora:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="admin-page">
+    <header class="site-header is-scrolled admin-header">
+      <a class="logo" href="index.html">Sergei Kasabov</a>
+      <div class="header__right">
+        <nav class="nav" aria-label="Admin">
+          <a href="index.html">На сайт</a>
+        </nav>
+        <button type="button" class="btn btn--ghost admin-logout" id="admin-logout" hidden>
+          Выйти
+        </button>
+      </div>
+    </header>
+
+    <main class="section admin-main">
+      <div class="section__inner">
+        <section class="admin-card" id="login-panel">
+          <p class="eyebrow">Админ</p>
+          <h1>Вход</h1>
+          <p class="admin-lead">Управление студийными фото и видео.</p>
+          <form id="login-form" class="admin-form" autocomplete="on">
+            <label>
+              Логин
+              <input type="text" name="username" required autocomplete="username" />
+            </label>
+            <label>
+              Пароль
+              <input
+                type="password"
+                name="password"
+                required
+                autocomplete="current-password"
+              />
+            </label>
+            <p class="admin-error" id="login-error" hidden></p>
+            <button class="btn btn--solid" type="submit">Войти</button>
+          </form>
+        </section>
+
+        <section class="admin-dashboard" id="dashboard" hidden>
+          <div class="section-head">
+            <p class="eyebrow">Студия</p>
+            <h1>Фото и видео</h1>
+            <p>
+              Загрузка публикует файл на сайте. Удаление убирает его из галереи.
+              Архивные работы с аукционов здесь не трогаем.
+            </p>
+          </div>
+
+          <div class="admin-panels">
+            <section class="admin-card admin-upload">
+              <h2>Картины</h2>
+              <form id="upload-photo-form" class="admin-form">
+                <label>
+                  Название
+                  <input
+                    type="text"
+                    name="title"
+                    maxlength="120"
+                    placeholder="Например: Неоновый каркас"
+                  />
+                </label>
+                <label class="admin-file">
+                  Файл (JPG / PNG / WEBP, до 15 МБ)
+                  <input
+                    type="file"
+                    name="file"
+                    accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
+                    required
+                  />
+                </label>
+                <p class="admin-error" id="photo-error" hidden></p>
+                <p class="admin-ok" id="photo-ok" hidden></p>
+                <button class="btn btn--solid" type="submit">Загрузить фото</button>
+              </form>
+              <div class="admin-grid" id="photo-grid"></div>
+            </section>
+
+            <section class="admin-card admin-upload">
+              <h2>Видео</h2>
+              <form id="upload-video-form" class="admin-form">
+                <label>
+                  Название
+                  <input
+                    type="text"
+                    name="title"
+                    maxlength="120"
+                    placeholder="Например: Частоты лаборатории"
+                  />
+                </label>
+                <label class="admin-file">
+                  Файл (MP4 / WEBM, до 100 МБ)
+                  <input
+                    type="file"
+                    name="file"
+                    accept="video/mp4,video/webm,.mp4,.webm"
+                    required
+                  />
+                </label>
+                <p class="admin-error" id="video-error" hidden></p>
+                <p class="admin-ok" id="video-ok" hidden></p>
+                <button class="btn btn--solid" type="submit">Загрузить видео</button>
+              </form>
+              <div class="admin-grid" id="video-grid"></div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

@@ -1,0 +1,516 @@
+[
+  {
+    "slug": "studio-001",
+    "kind": "image",
+    "title": "Антенны рассвета",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-002",
+    "kind": "image",
+    "title": "Неоновый каркас",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-003",
+    "kind": "image",
+    "title": "Ленты орбиты",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-004",
+    "kind": "image",
+    "title": "Двойной маяк",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-005",
+    "kind": "image",
+    "title": "Оливковый триптих",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-006",
+    "kind": "image",
+    "title": "Горизонт глитча",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-007",
+    "kind": "image",
+    "title": "Белый организм",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-008",
+    "kind": "image",
+    "title": "Лаймовая карта",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-009",
+    "kind": "image",
+    "title": "Магентный разлом",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-010",
+    "kind": "image",
+    "title": "Жидкое золото",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-011",
+    "kind": "image",
+    "title": "Скорость горизонта",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-012",
+    "kind": "image",
+    "title": "Оранжевые порталы",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-013",
+    "kind": "image",
+    "title": "Индустриальный луч",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-014",
+    "kind": "image",
+    "title": "Фильтры хаоса",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-015",
+    "kind": "image",
+    "title": "Клеточная вспышка",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-016",
+    "kind": "image",
+    "title": "Золотой жест",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-017",
+    "kind": "image",
+    "title": "Розовый треугольник",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-018",
+    "kind": "image",
+    "title": "Техно-сердце",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-019",
+    "kind": "image",
+    "title": "Магентный столб",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-020",
+    "kind": "image",
+    "title": "Серый чертёж",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-021",
+    "kind": "image",
+    "title": "Искры на чёрном",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-022",
+    "kind": "image",
+    "title": "Крыло скорости",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-023",
+    "kind": "image",
+    "title": "Оранжевый ромб",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-024",
+    "kind": "image",
+    "title": "Розовая сфера",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-025",
+    "kind": "image",
+    "title": "Изумрудный глитч",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-026",
+    "kind": "image",
+    "title": "Неоновый узел",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-027",
+    "kind": "image",
+    "title": "Осколки спектра",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-028",
+    "kind": "image",
+    "title": "Лазерный круг",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-029",
+    "kind": "image",
+    "title": "Солнечный вихрь",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-030",
+    "kind": "image",
+    "title": "Ледяной профиль",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-031",
+    "kind": "image",
+    "title": "Магентный клин",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-032",
+    "kind": "image",
+    "title": "Зелёная лестница",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-033",
+    "kind": "image",
+    "title": "Синтетический туман",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-034",
+    "kind": "image",
+    "title": "Красный контур",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-035",
+    "kind": "image",
+    "title": "Багровый разрыв",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-036",
+    "kind": "image",
+    "title": "Белый осколок",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-037",
+    "kind": "image",
+    "title": "Извержение спектра",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-038",
+    "kind": "image",
+    "title": "Ночная скорость",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-039",
+    "kind": "image",
+    "title": "Тектонический пульс",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-040",
+    "kind": "image",
+    "title": "Неоновый след",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-041",
+    "kind": "image",
+    "title": "Жёлтый полумесяц",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-042",
+    "kind": "image",
+    "title": "Карта созвездий",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-043",
+    "kind": "image",
+    "title": "Бирюзовый ритм",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-044",
+    "kind": "image",
+    "title": "Циановый импульс",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-045",
+    "kind": "image",
+    "title": "Призраки города",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-046",
+    "kind": "image",
+    "title": "Архитектурный взрыв",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-047",
+    "kind": "image",
+    "title": "Бирюзовая ось",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-048",
+    "kind": "image",
+    "title": "Огненный срез",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-049",
+    "kind": "image",
+    "title": "Розовый разлом",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-050",
+    "kind": "image",
+    "title": "Окно магмы",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-051",
+    "kind": "image",
+    "title": "Индустриальный шов",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-052",
+    "kind": "image",
+    "title": "Солнечный дозор",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-053",
+    "kind": "image",
+    "title": "Двойная дымка",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-054",
+    "kind": "image",
+    "title": "Скелет города",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-055",
+    "kind": "image",
+    "title": "Механический силуэт",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-056",
+    "kind": "image",
+    "title": "Циановые пруды",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-057",
+    "kind": "image",
+    "title": "Солнечный глаз",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-058",
+    "kind": "image",
+    "title": "Шкала импульса",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-059",
+    "kind": "image",
+    "title": "Дым каллиграфии",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-060",
+    "kind": "image",
+    "title": "Оранжевый фонтан",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-061",
+    "kind": "image",
+    "title": "Лаймовая вспышка",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-062",
+    "kind": "image",
+    "title": "Золотое ядро",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-063",
+    "kind": "image",
+    "title": "Рельеф кратера",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-064",
+    "kind": "image",
+    "title": "Неоновая помеха",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-065",
+    "kind": "image",
+    "title": "Коралловый шум",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-066",
+    "kind": "image",
+    "title": "Маска квартала",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-067",
+    "kind": "image",
+    "title": "Диагональный разрыв",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-068",
+    "kind": "image",
+    "title": "Орбитальные узлы",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-069",
+    "kind": "image",
+    "title": "Оранжевая полоса",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-070",
+    "kind": "image",
+    "title": "Двойной горизонт",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-071",
+    "kind": "image",
+    "title": "Розовый конструкт",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-072",
+    "kind": "image",
+    "title": "Белый серп",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-073",
+    "kind": "image",
+    "title": "Кобальтовый щит",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-074",
+    "kind": "image",
+    "title": "Песчаная туманность",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-075",
+    "kind": "image",
+    "title": "Внутренний космос",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-076",
+    "kind": "image",
+    "title": "Рассветный тотем",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-077",
+    "kind": "image",
+    "title": "Решётка тени",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-078",
+    "kind": "image",
+    "title": "Ржавый луч",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-079",
+    "kind": "image",
+    "title": "Схема машины",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-080",
+    "kind": "image",
+    "title": "Четверица стен",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-081",
+    "kind": "image",
+    "title": "Открытое ателье",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-082",
+    "kind": "image",
+    "title": "Белый призрак",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-083",
+    "kind": "image",
+    "title": "Золотая дуга",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-video-01",
+    "kind": "video",
+    "ext": "mp4",
+    "title": "Частоты лаборатории",
+    "poster": "studio-001",
+    "source": "seed"
+  },
+  {
+    "slug": "studio-video-02",
+    "kind": "video",
+    "ext": "mp4",
+    "title": "Взрыв метрополии",
+    "poster": "studio-002",
+    "source": "seed"
+  }
+]

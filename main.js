@@ -6,8 +6,9 @@ const lightboxVideo = document.querySelector("[data-lightbox-video]");
 const lightboxCap = document.querySelector("[data-lightbox-cap]");
 const gallery = document.querySelector("[data-gallery]");
 const dict = window.KASABOV_I18N || {};
-const works = Array.isArray(window.KASABOV_WORKS) ? window.KASABOV_WORKS : [];
+const archiveWorks = Array.isArray(window.KASABOV_WORKS) ? window.KASABOV_WORKS : [];
 const supported = ["en", "fr", "es", "ru", "zh"];
+let works = [...archiveWorks];
 let activeFilter = "all";
 let currentLang = "en";
 
@@ -83,6 +84,26 @@ function bindWork(itemEl, item) {
   });
 }
 
+function mapApiItem(item) {
+  if (item.kind === "video") {
+    return {
+      type: "video",
+      category: "video",
+      src: item.url,
+      poster: item.poster || "",
+      title: item.title || "",
+      capKey: "capVideo",
+    };
+  }
+  return {
+    type: "image",
+    category: "studio",
+    src: item.url,
+    title: item.title || "",
+    capKey: "capStudio",
+  };
+}
+
 function renderGallery() {
   if (!gallery) return;
   const pack = dict[currentLang] || dict.en || {};
@@ -130,6 +151,20 @@ function renderGallery() {
   });
 
   observeReveals(gallery);
+}
+
+async function loadStudioGallery() {
+  try {
+    const res = await fetch("/api/gallery", { credentials: "same-origin" });
+    if (!res.ok) throw new Error("gallery failed");
+    const data = await res.json();
+    const live = (Array.isArray(data.items) ? data.items : []).map(mapApiItem);
+    // Videos + studio first, archive after
+    works = [...live, ...archiveWorks];
+  } catch {
+    works = [...archiveWorks];
+  }
+  renderGallery();
 }
 
 document.querySelectorAll("[data-filter]").forEach((btn) => {
@@ -211,3 +246,4 @@ document.querySelectorAll("[data-lang]").forEach((btn) => {
 
 observeReveals();
 applyLanguage(detectLanguage());
+loadStudioGallery();

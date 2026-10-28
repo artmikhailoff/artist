@@ -760,3 +760,158 @@ h2 {
     opacity: 1 !important;
   }
 }
+
+/* —— Admin —— */
+.admin-page {
+  min-height: 100vh;
+}
+
+.admin-header .btn {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+}
+
+.admin-main {
+  padding-top: calc(5rem + var(--space));
+  padding-bottom: var(--space);
+}
+
+.admin-card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(20, 23, 28, 0.08);
+  padding: 1.75rem;
+  max-width: 420px;
+}
+
+.admin-lead {
+  color: var(--ink-soft);
+  margin: 0.75rem 0 1.5rem;
+}
+
+.admin-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-form label,
+.admin-upload label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.admin-form input,
+.admin-upload input[type="text"] {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(20, 23, 28, 0.14);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.admin-file input[type="file"] {
+  font: inherit;
+  color: var(--ink);
+}
+
+.admin-error {
+  color: #9b2c2c;
+  font-size: 0.9rem;
+}
+
+.admin-ok {
+  color: #2f6b4f;
+  font-size: 0.9rem;
+}
+
+.admin-dashboard .section-head {
+  margin-bottom: 2rem;
+  max-width: 40rem;
+}
+
+.admin-panels {
+  display: grid;
+  gap: 2rem;
+}
+
+.admin-dashboard .admin-upload {
+  max-width: none;
+}
+
+.admin-dashboard .admin-upload h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.admin-item {
+  background: #fff;
+  border: 1px solid rgba(20, 23, 28, 0.08);
+  overflow: hidden;
+}
+
+.admin-item img,
+.admin-item video {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  background: #0c0e12;
+}
+
+.admin-item-meta {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.9rem 1rem 1.1rem;
+}
+
+.admin-item-meta span {
+  font-size: 0.75rem;
+  color: var(--mist);
+  word-break: break-all;
+}
+
+.admin-empty {
+  color: var(--mist);
+  margin: 1rem 0 0;
+}
+
+.admin-delete {
+  justify-self: start;
+  margin-top: 0.5rem;
+  appearance: none;
+  border: 1px solid #9b2c2c;
+  background: #9b2c2c;
+  color: #fff;
+  padding: 0.55rem 1rem;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.admin-delete:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.nav-admin {
+  opacity: 0.72;
+}
+
+@media (min-width: 900px) {
+  .admin-panels {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}

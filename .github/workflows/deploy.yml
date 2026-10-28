@@ -25,10 +25,17 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
       - name: Verify static site files
         run: |
           set -euo pipefail
           test -f index.html
+          test -f admin.html
+          test -f admin.js
           test -f styles.css
           test -f main.js
           test -f i18n.js
@@ -36,7 +43,12 @@ jobs:
           test -f Dockerfile
           test -f docker-compose.yml
           test -f docker/Caddyfile
+          test -f seed/manifest.json
           test -d assets/studio
+          test -d api/app
+
+      - name: Compile API
+        run: python -m compileall -q api/app
 
   deploy:
     needs: test
@@ -103,7 +115,11 @@ jobs:
             Dockerfile \
             docker-compose.yml \
             docker \
+            api \
+            seed \
             index.html \
+            admin.html \
+            admin.js \
             styles.css \
             main.js \
             i18n.js \
@@ -147,5 +163,6 @@ jobs:
             echo "- HTTPS: https://${{ steps.inv.outputs.domain }}:${{ steps.inv.outputs.https_port }}/"
             echo "- HTTP: http://${{ steps.inv.outputs.domain }}/ (ACME challenge + redirect to :${{ steps.inv.outputs.https_port }})"
             echo "- App dir: \`${{ steps.inv.outputs.app_dir }}\`"
+            echo "- Admin: https://${{ steps.inv.outputs.domain }}:${{ steps.inv.outputs.https_port }}/admin.html"
             echo "- Note: host :443 is OpenVPN stunnel; site TLS is on :${{ steps.inv.outputs.https_port }}"
           } >> "$GITHUB_STEP_SUMMARY"

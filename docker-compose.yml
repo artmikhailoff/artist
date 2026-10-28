@@ -1,4 +1,33 @@
 services:
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    image: ${ARTIST_API_IMAGE:-artist-api}:${ARTIST_TAG:-latest}
+    container_name: ${ARTIST_API_CONTAINER_NAME:-artist-api}
+    restart: unless-stopped
+    environment:
+      ARTIST_DATA_DIR: /data
+      ARTIST_SEED_DIR: /seed
+      ADMIN_USER: ${ADMIN_USER:-kasabov}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH:?Set ADMIN_PASSWORD_HASH in .env}
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY in .env}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+    volumes:
+      - studio_data:/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
   web:
     build:
       context: .
@@ -6,6 +35,9 @@ services:
     image: ${ARTIST_IMAGE:-artist}:${ARTIST_TAG:-latest}
     container_name: ${ARTIST_CONTAINER_NAME:-artist}
     restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
     ports:
       # Host :443 is stunnel on Liquid Web — publish HTTPS on 8443.
       - "${ARTIST_HTTP_PORT:-80}:80"
@@ -32,5 +64,6 @@ services:
       start_period: 20s
 
 volumes:
+  studio_data:
   caddy_data:
   caddy_config:

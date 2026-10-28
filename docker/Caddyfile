@@ -20,6 +20,18 @@ https://{$ARTIST_DOMAIN:kasabov.northlayertech.com} {
 		issuer acme
 	}
 
+	handle /api/* {
+		reverse_proxy api:8000
+	}
+
+	handle /media/* {
+		reverse_proxy api:8000
+	}
+
+	handle /admin {
+		redir /admin.html 302
+	}
+
 	handle {
 		root * /srv
 		file_server
