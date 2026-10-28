@@ -104,15 +104,25 @@ function mapApiItem(item) {
   };
 }
 
+function matchesFilter(item) {
+  if (activeFilter === "video") {
+    return item.type === "video" || item.category === "video";
+  }
+  // «Работы» = every still image (API studio + static archive)
+  return item.type !== "video" && item.category !== "video";
+}
+
 function renderGallery() {
   if (!gallery) return;
   const pack = dict[currentLang] || dict.ru || dict.en || {};
-  const filtered = works.filter((w) => w.category === activeFilter);
+  const filtered = works.filter(matchesFilter);
 
   gallery.innerHTML = "";
   filtered.forEach((item, index) => {
     const figure = document.createElement("figure");
-    figure.className = "gallery__item reveal";
+    // Gallery items must be visible immediately: lazy images often have 0 height
+    // until load, so IntersectionObserver never flips .reveal → .is-in.
+    figure.className = "gallery__item is-in";
     figure.dataset.work = "";
     figure.dataset.category = item.category;
     figure.style.setProperty("--delay", `${Math.min(index, 12) * 0.03}s`);
@@ -134,7 +144,7 @@ function renderGallery() {
     } else {
       figure.innerHTML = `
         <button type="button" class="gallery__open" data-open>
-          <img src="${item.src}" alt="${title}" loading="lazy" />
+          <img src="${item.src}" alt="${title}" loading="lazy" decoding="async" />
         </button>
         <figcaption>
           <strong>${title}</strong>
@@ -146,8 +156,6 @@ function renderGallery() {
     gallery.appendChild(figure);
     bindWork(figure, item);
   });
-
-  observeReveals(gallery);
 }
 
 async function loadStudioGallery() {
@@ -156,10 +164,17 @@ async function loadStudioGallery() {
     if (!res.ok) throw new Error("gallery failed");
     const data = await res.json();
     const live = (Array.isArray(data.items) ? data.items : []).map(mapApiItem);
-    // Videos + studio first, archive after
-    works = [...live, ...archiveWorks];
+    const images = live.filter((w) => w.type !== "video");
+    const videos = live.filter((w) => w.type === "video");
+    // Videos first for the Video tab; paintings then archive for Works.
+    works = [...videos, ...images, ...archiveWorks];
   } catch {
     works = [...archiveWorks];
+  }
+  // Keep filter button state as source of truth after async load.
+  const activeBtn = document.querySelector("[data-filter].is-active");
+  if (activeBtn) {
+    activeFilter = activeBtn.getAttribute("data-filter") || "works";
   }
   renderGallery();
 }
