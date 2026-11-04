@@ -2,14 +2,14 @@
 	email admin@northlayertech.com
 }
 
-# Public HTTPS is published on host :8443 (container :443) because host :443 is OpenVPN stunnel.
+# Public HTTPS on host :443 (container :443). Host stunnel for OpenVPN CE is on :4443.
 # /healthz stays on HTTP so the container healthcheck does not follow the HTTPS redirect.
 http://{$ARTIST_DOMAIN:kasabov.northlayertech.com} {
 	handle /healthz {
 		respond "ok" 200
 	}
 	handle {
-		redir https://{$ARTIST_DOMAIN:kasabov.northlayertech.com}:8443{uri} permanent
+		redir https://{$ARTIST_DOMAIN:kasabov.northlayertech.com}{uri} permanent
 	}
 }
 

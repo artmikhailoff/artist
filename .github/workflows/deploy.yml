@@ -161,9 +161,14 @@ jobs:
             echo "### Sergei Kasabov site deployed"
             echo ""
             echo "- Host: \`${{ steps.inv.outputs.user }}@${{ steps.inv.outputs.host }}\` (${{ env.HOST_NAME }})"
-            echo "- HTTPS: https://${{ steps.inv.outputs.domain }}:${{ steps.inv.outputs.https_port }}/"
-            echo "- HTTP: http://${{ steps.inv.outputs.domain }}/ (ACME challenge + redirect to :${{ steps.inv.outputs.https_port }})"
+            if [ "${{ steps.inv.outputs.https_port }}" = "443" ]; then
+              echo "- HTTPS: https://${{ steps.inv.outputs.domain }}/"
+              echo "- Admin: https://${{ steps.inv.outputs.domain }}/admin.html"
+            else
+              echo "- HTTPS: https://${{ steps.inv.outputs.domain }}:${{ steps.inv.outputs.https_port }}/"
+              echo "- Admin: https://${{ steps.inv.outputs.domain }}:${{ steps.inv.outputs.https_port }}/admin.html"
+            fi
+            echo "- HTTP: http://${{ steps.inv.outputs.domain }}/ (ACME challenge + redirect to HTTPS)"
             echo "- App dir: \`${{ steps.inv.outputs.app_dir }}\`"
-            echo "- Admin: https://${{ steps.inv.outputs.domain }}:${{ steps.inv.outputs.https_port }}/admin.html"
-            echo "- Note: host :443 is OpenVPN stunnel; site TLS is on :${{ steps.inv.outputs.https_port }}"
+            echo "- Note: OpenVPN stunnel on this host is :4443; site TLS is on :${{ steps.inv.outputs.https_port }}"
           } >> "$GITHUB_STEP_SUMMARY"

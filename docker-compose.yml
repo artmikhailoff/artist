@@ -39,9 +39,9 @@ services:
       api:
         condition: service_healthy
     ports:
-      # Host :443 is stunnel on Liquid Web — publish HTTPS on 8443.
+      # Host :443 is artist HTTPS; OpenVPN stunnel on Liquid Web is on :4443.
       - "${ARTIST_HTTP_PORT:-80}:80"
-      - "${ARTIST_HTTPS_PORT:-8443}:443"
+      - "${ARTIST_HTTPS_PORT:-443}:443"
     volumes:
       - caddy_data:/data
       - caddy_config:/config
