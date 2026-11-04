@@ -23,6 +23,7 @@ from .media import (
     image_path,
     merge_seed,
     public_items,
+    rename_item,
     video_path,
 )
 
@@ -165,6 +166,27 @@ async def upload_video(
         item = add_video(data, file.filename, title)
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(status_code=400, detail=f"Could not store video: {exc}") from exc
+    return {"item": item}
+
+
+@app.patch("/api/media/{slug}")
+async def rename_media(
+    slug: str,
+    request: Request,
+    _user: str = Depends(require_admin),
+) -> dict:
+    try:
+        body = await request.json()
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(status_code=400, detail="Invalid JSON") from exc
+
+    title = str(body.get("title", "")).strip()
+    if not title:
+        raise HTTPException(status_code=400, detail="Title required")
+
+    item = rename_item(slug, title)
+    if item is None:
+        raise HTTPException(status_code=404, detail="Not found")
     return {"item": item}
 
 

@@ -259,9 +259,33 @@ def add_video(raw_bytes: bytes, filename: str, title: str) -> dict[str, str]:
     return _public_item(entry)
 
 
+def _valid_slug(slug: str) -> bool:
+    slug = slug.strip()
+    return bool(slug) and "/" not in slug and "\\" not in slug and ".." not in slug
+
+
+def rename_item(slug: str, title: str) -> dict[str, str] | None:
+    slug = slug.strip()
+    if not _valid_slug(slug):
+        return None
+    title = (title or "").strip()[:120]
+    if not title:
+        return None
+
+    with _lock:
+        manifest = load_manifest()
+        for item in manifest:
+            if str(item.get("slug")) != slug:
+                continue
+            item["title"] = title
+            save_manifest(manifest)
+            return _public_item(item)
+    return None
+
+
 def delete_item(slug: str) -> bool:
     slug = slug.strip()
-    if not slug or "/" in slug or "\\" in slug or ".." in slug:
+    if not _valid_slug(slug):
         return False
 
     with _lock:

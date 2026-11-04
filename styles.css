@@ -649,18 +649,45 @@ h2 {
   color: rgba(238, 241, 244, 0.72);
 }
 
-.contact__email {
-  display: inline-block;
+.contact__channels {
+  display: grid;
+  gap: 0.85rem;
   margin-top: 1.5rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  justify-items: start;
+}
+
+.contact__email,
+.contact__phone,
+.contact__social {
+  display: inline-block;
   text-decoration: none;
   border-bottom: 1px solid rgba(212, 160, 23, 0.55);
   transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
 }
 
+.contact__email {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+}
+
+.contact__phone {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.75rem);
+  letter-spacing: 0.02em;
+}
+
+.contact__social {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
 .contact__email:hover,
-.contact__email:focus-visible {
+.contact__email:focus-visible,
+.contact__phone:hover,
+.contact__phone:focus-visible,
+.contact__social:hover,
+.contact__social:focus-visible {
   color: var(--cadmium);
   border-color: var(--cadmium);
 }
@@ -928,12 +955,18 @@ h2 {
 
 .admin-row {
   display: grid;
-  grid-template-columns: 72px auto minmax(0, 1fr);
+  grid-template-columns: 72px minmax(0, 1fr) auto;
   gap: 0.85rem;
   align-items: center;
   padding: 0.55rem;
   background: #fff;
   border: 1px solid rgba(20, 23, 28, 0.08);
+}
+
+.admin-row__actions {
+  display: grid;
+  gap: 0.4rem;
+  align-self: center;
 }
 
 .admin-row__media {
@@ -969,17 +1002,32 @@ h2 {
   margin: 0;
 }
 
+.admin-rename,
 .admin-delete {
   appearance: none;
-  border: 1px solid #9b2c2c;
-  background: #9b2c2c;
-  color: #fff;
-  padding: 0.55rem 0.9rem;
+  padding: 0.5rem 0.85rem;
   font: inherit;
   font-size: 0.8rem;
   cursor: pointer;
   white-space: nowrap;
-  align-self: center;
+}
+
+.admin-rename {
+  border: 1px solid rgba(20, 23, 28, 0.22);
+  background: #fff;
+  color: var(--ink);
+}
+
+.admin-rename:hover,
+.admin-rename:disabled {
+  border-color: var(--ink);
+  background: var(--paper-deep);
+}
+
+.admin-delete {
+  border: 1px solid #9b2c2c;
+  background: #9b2c2c;
+  color: #fff;
 }
 
 .admin-delete:hover,
@@ -1001,7 +1049,7 @@ h2 {
 
 @media (max-width: 560px) {
   .admin-row {
-    grid-template-columns: 64px auto minmax(0, 1fr);
+    grid-template-columns: 64px minmax(0, 1fr) auto;
     gap: 0.55rem;
   }
 
@@ -1010,6 +1058,7 @@ h2 {
     height: 64px;
   }
 
+  .admin-rename,
   .admin-delete {
     padding: 0.45rem 0.7rem;
     font-size: 0.75rem;

@@ -101,10 +101,13 @@
         (item) => `
       <article class="admin-row">
         <img class="admin-row__media" src="${escapeHtml(item.url)}" alt="${escapeHtml(item.title)}" />
-        <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}" aria-label="Удалить ${escapeHtml(item.title)}" title="Удалить">Удалить</button>
         <div class="admin-row__body">
           <strong>${escapeHtml(item.title)}</strong>
           <span>${escapeHtml(item.slug)}</span>
+        </div>
+        <div class="admin-row__actions">
+          <button type="button" class="admin-rename" data-slug="${escapeHtml(item.slug)}" data-title="${escapeHtml(item.title)}" aria-label="Переименовать ${escapeHtml(item.title)}" title="Переименовать">Имя</button>
+          <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}" aria-label="Удалить ${escapeHtml(item.title)}" title="Удалить">Удалить</button>
         </div>
       </article>`
       )
@@ -124,10 +127,13 @@
         <video class="admin-row__media" src="${escapeHtml(item.url)}" ${
           item.poster ? `poster="${escapeHtml(item.poster)}"` : ""
         } muted playsinline preload="metadata"></video>
-        <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}" aria-label="Удалить ${escapeHtml(item.title)}" title="Удалить">Удалить</button>
         <div class="admin-row__body">
           <strong>${escapeHtml(item.title)}</strong>
           <span>${escapeHtml(item.slug)}</span>
+        </div>
+        <div class="admin-row__actions">
+          <button type="button" class="admin-rename" data-slug="${escapeHtml(item.slug)}" data-title="${escapeHtml(item.title)}" aria-label="Переименовать ${escapeHtml(item.title)}" title="Переименовать">Имя</button>
+          <button type="button" class="admin-delete" data-slug="${escapeHtml(item.slug)}" aria-label="Удалить ${escapeHtml(item.title)}" title="Удалить">Удалить</button>
         </div>
       </article>`
       )
@@ -227,7 +233,35 @@
     }
   });
 
-  const onDelete = async (event) => {
+  const onRowAction = async (event) => {
+    const renameBtn = event.target.closest(".admin-rename");
+    if (renameBtn) {
+      const slug = renameBtn.getAttribute("data-slug");
+      const current = renameBtn.getAttribute("data-title") || "";
+      if (!slug) return;
+      const next = window.prompt("Новое название на сайте:", current);
+      if (next === null) return;
+      const title = next.trim();
+      if (!title) {
+        window.alert("Название не может быть пустым");
+        return;
+      }
+      if (title === current) return;
+      renameBtn.disabled = true;
+      try {
+        await api(`/api/media/${encodeURIComponent(slug)}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title }),
+        });
+        await loadGallery();
+      } catch (err) {
+        window.alert(err.message || "Не удалось переименовать");
+        renameBtn.disabled = false;
+      }
+      return;
+    }
+
     const btn = event.target.closest(".admin-delete");
     if (!btn) return;
     const slug = btn.getAttribute("data-slug");
@@ -243,8 +277,8 @@
     }
   };
 
-  photoGrid.addEventListener("click", onDelete);
-  videoGrid.addEventListener("click", onDelete);
+  photoGrid.addEventListener("click", onRowAction);
+  videoGrid.addEventListener("click", onRowAction);
 
   checkSession();
 })();
