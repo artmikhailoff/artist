@@ -36,7 +36,7 @@ https://{$ARTIST_DOMAIN:kasabov.northlayertech.com} {
 		root * /srv
 		file_server
 
-		@static path *.css *.js *.jpg *.jpeg *.png *.gif *.ico *.svg *.webp *.mp4 *.webm *.woff *.woff2
-		header @static Cache-Control "public, max-age=604800"
+		# No client cache — admin/media updates must show without hard refresh.
+		header Cache-Control "no-store"
 	}
 }

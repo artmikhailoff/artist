@@ -78,7 +78,9 @@ def health() -> dict[str, str]:
 
 
 @app.get("/api/gallery")
-def gallery() -> dict:
+def gallery(response: Response) -> dict:
+    # Always fresh — admin uploads/deletes must show on next page load.
+    response.headers["Cache-Control"] = "no-store"
     return {"items": public_items()}
 
 
@@ -206,7 +208,7 @@ def media_image(filename: str) -> FileResponse:
     return FileResponse(
         path,
         media_type="image/jpeg",
-        headers={"Cache-Control": "public, max-age=604800"},
+        headers={"Cache-Control": "no-store"},
     )
 
 
@@ -219,5 +221,5 @@ def media_video(filename: str) -> FileResponse:
     return FileResponse(
         path,
         media_type=media_type,
-        headers={"Cache-Control": "public, max-age=604800"},
+        headers={"Cache-Control": "no-store"},
     )

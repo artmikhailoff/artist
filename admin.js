@@ -29,6 +29,7 @@
   const api = async (url, options = {}) => {
     const res = await fetch(url, {
       credentials: "same-origin",
+      cache: "no-store",
       ...options,
     });
     let body = null;

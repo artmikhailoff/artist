@@ -160,7 +160,10 @@ function renderGallery() {
 
 async function loadStudioGallery() {
   try {
-    const res = await fetch("/api/gallery", { credentials: "same-origin" });
+    const res = await fetch("/api/gallery", {
+      credentials: "same-origin",
+      cache: "no-store",
+    });
     if (!res.ok) throw new Error("gallery failed");
     const data = await res.json();
     const live = (Array.isArray(data.items) ? data.items : []).map(mapApiItem);
